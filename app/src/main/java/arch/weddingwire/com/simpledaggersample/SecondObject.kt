@@ -6,5 +6,5 @@ import android.widget.Toast
 
 class SecondObject(private val application: Context) {
     fun toastApp() = Toast.makeText(application, "Yep", Toast.LENGTH_LONG).show()
-
 }
+

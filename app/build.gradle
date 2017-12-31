@@ -22,12 +22,14 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    dataBinding {
+        enabled = true
+    }
 }
 
 kapt {
     generateStubs = true
 }
-
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
@@ -37,8 +39,10 @@ dependencies {
     compile "com.google.dagger:dagger:2.12"
     kapt "com.google.dagger:dagger-android-processor:2.12"
     kapt "com.google.dagger:dagger-compiler:2.12"
+    kapt "com.android.databinding:compiler:3.0.1"
     compile "com.google.dagger:dagger-android-support:2.12"
     testImplementation 'junit:junit:4.12'
+    compile 'com.github.ujavid:kombind:-SNAPSHOT'
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
 }
