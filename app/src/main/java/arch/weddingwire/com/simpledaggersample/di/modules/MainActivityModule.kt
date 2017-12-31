@@ -14,5 +14,5 @@ class MainActivityModule {
     internal fun provideSecondObject(context: Context) = SecondObject(context)
 
     @Provides
-    internal  fun providesViewModelFactor(application: Application) : ViewModelProvider.Factory = MainViewModel.Factory(application)
+    internal fun providesViewModelFactor(application: Application): ViewModelProvider.Factory = MainViewModel.Factory(application)
 }

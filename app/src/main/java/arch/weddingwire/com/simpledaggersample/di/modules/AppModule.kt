@@ -2,7 +2,6 @@ package arch.weddingwire.com.simpledaggersample.di.modules
 
 import android.app.Application
 import android.content.Context
-import arch.weddingwire.com.simpledaggersample.di.modules.MainActivityComponent
 import dagger.Module
 import javax.inject.Singleton
 import dagger.Provides
@@ -15,5 +14,4 @@ class AppModule {
     internal fun provideContext(application: Application): Context {
         return application
     }
-
 }

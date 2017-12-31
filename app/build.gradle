@@ -6,6 +6,8 @@ apply plugin: 'kotlin-android-extensions'
 
 apply plugin: 'kotlin-kapt'
 
+
+
 android {
     compileSdkVersion 26
     defaultConfig {
@@ -31,6 +33,14 @@ kapt {
     generateStubs = true
 }
 
+repositories {
+    jcenter()
+}
+
+configurations {
+    ktlint
+}
+
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation"org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
@@ -41,8 +51,28 @@ dependencies {
     kapt "com.google.dagger:dagger-compiler:2.12"
     kapt "com.android.databinding:compiler:3.0.1"
     compile "com.google.dagger:dagger-android-support:2.12"
+    ktlint "com.github.shyiko:ktlint:0.14.0"
     testImplementation 'junit:junit:4.12'
     compile 'com.github.ujavid:kombind:-SNAPSHOT'
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
+}
+
+
+task ktlint(type: JavaExec, group: "verification") {
+    description = "Check Kotlin code style."
+    classpath = configurations.ktlint
+    main = "com.github.shyiko.ktlint.Main"
+    args "src/**/*.kt"
+    // to generate report in checkstyle format prepend following args:
+    // "--reporter=plain", "--reporter=checkstyle,output=${buildDir}/ktlint.xml"
+    // see https://github.com/shyiko/ktlint#usage for more
+}
+check.dependsOn ktlint
+
+task ktlintFormat(type: JavaExec, group: "formatting") {
+    description = "Fix Kotlin code style deviations."
+    classpath = configurations.ktlint
+    main = "com.github.shyiko.ktlint.Main"
+    args "-F", "src/**/*.kt"
 }
